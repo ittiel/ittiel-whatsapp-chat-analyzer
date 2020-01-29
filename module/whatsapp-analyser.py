@@ -188,7 +188,12 @@ def pretty_print(senders, words_per_sender, avg_words_per_message, hour_of_day_s
     print("\n")
     print(tabulate(sorted(monthly_stats.items()), headers=["Month", "Amount of chats"]))
     print("\n")
-    print(tabulate(sorted(words_stats.items()), headers=["Word", "Amount"]))
+    # tabulate doesn't print the words properly :(
+    # print(tabulate(sorted_words_stats.items(), headers=["Word", "Amount"]))
+    sorted_words_stats = {k: v for k, v in sorted(words_stats.items(), key=lambda item: item[1], reverse=True)}
+    print("Word    Amount")
+    for word in sorted_words_stats:
+        print("{}     {}".format(word, sorted_words_stats.get(word)))
 
 
 def main():
